@@ -49,7 +49,7 @@ static NSString *const kBackgroundViewAlphaSegueId = @"BackgroundViewAlpha";
     id value;
     if ([segue.identifier isEqualToString:kBackgroundViewAlphaSegueId]) {
         UITextField *alphaTextField = [cell viewWithTag:1000];
-        value = @(alphaTextField.text.doubleValue);
+        value = alphaTextField.text.length ? @(alphaTextField.text.doubleValue) : @1;
     }
     [destinationVC.navigationItem setValue:value forKey:key];
 }

@@ -12,7 +12,6 @@
 		F255C5591F1491FB00BD10B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C54D1F1491FB00BD10B3 /* LaunchScreen.storyboard */; };
 		F255C55A1F1491FB00BD10B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C54F1F1491FB00BD10B3 /* Main.storyboard */; };
 		F255C55B1F1491FB00BD10B3 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5521F1491FB00BD10B3 /* CustomizationViewController.m */; };
-		F255C55C1F1491FB00BD10B3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F255C5531F1491FB00BD10B3 /* Info.plist */; };
 		F255C55D1F1491FB00BD10B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5541F1491FB00BD10B3 /* main.m */; };
 		F255C55E1F1491FB00BD10B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5561F1491FB00BD10B3 /* ViewController.m */; };
 		F255C5661F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */; };
@@ -150,7 +149,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F255C55C1F1491FB00BD10B3 /* Info.plist in Resources */,
 				F255C55A1F1491FB00BD10B3 /* Main.storyboard in Resources */,
 				F255C5581F1491FB00BD10B3 /* Assets.xcassets in Resources */,
 				F255C5591F1491FB00BD10B3 /* LaunchScreen.storyboard in Resources */,
