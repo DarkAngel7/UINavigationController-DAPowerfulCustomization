@@ -291,7 +291,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomization/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/UINavigationController+DAPowerfulCustomizationDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomization";
@@ -304,7 +304,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomization/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/UINavigationController+DAPowerfulCustomizationDemo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomization";
