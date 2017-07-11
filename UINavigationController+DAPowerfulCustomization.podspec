@@ -14,8 +14,8 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   A category to expand UINavigationController
  
-                  1. When setLeftBarButtonItems: or setLeftBarButtonItem: on UINavigationItem, the default interactive pop gesture is avalible like normal, you do not need to do more.
-                  2. When using the properties of UINavigationItem below, you can easily custom the navigation bar and status bar appearance in different view controllers, the appearance transition when push or pop will be wonderful.
+                  1. Enable interactive pop gesture.
+                  2. You can easily custom the navigation bar and status bar appearance in different view controllers, the appearance transition when push or pop will be wonderful.
                   3. When user click the default back button on navigation bar, you can handle the click event and you can prevent the pop event by returning NO.
                   4. You can handle the interactive pop gesture recognizer event, returning no to prevent it began.
  
