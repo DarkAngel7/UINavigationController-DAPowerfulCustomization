@@ -10,9 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- <#Description#>
- */
 @interface CustomizationViewController : UITableViewController
 
 @end
