@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.name         = "UINavigationController+DAPowerfulCustomization"
   s.version      = "1.0.0"
-  s.summary      = "A category to expand UINavigationController, UINavigationItem and UIViewController. You can customization UINavigationBar for each view controller and enjoy your life."
+  s.summary      = "You can customization UINavigationBar for each view controller and enjoy your life."
   s.description  = <<-DESC
                   A category to expand UINavigationController
  
