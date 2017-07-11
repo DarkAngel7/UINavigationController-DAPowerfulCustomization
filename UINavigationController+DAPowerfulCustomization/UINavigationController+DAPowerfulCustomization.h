@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  A category to expand UINavigationItem
  
- Apple recommends each UIViewController use it's navigationItem to decide navigationBar appearance, such as title, titleView and so on. Sometimes the properties of UINavigationItem are not enough, so I expand the UINavigationItem to realize more customization of UINavigationBar
+ Apple recommends each UIViewController use it's navigationItem to decide navigationBar appearance, such as title, titleView and so on. Sometimes the properties of UINavigationItem are not enough, so I expand the UINavigationItem to realize more customization of UINavigationBar.
  
  You can use the properites below in your view controller, then the appearance of UINavigationBar in UINavigationController will auto update based on different UIViewController. I also do a little work to make status bar update alongside the view controller transition, you can use the three statusBar properties, or just use the methods of UIViewController which provided by Apple. Enjoy it.
  */

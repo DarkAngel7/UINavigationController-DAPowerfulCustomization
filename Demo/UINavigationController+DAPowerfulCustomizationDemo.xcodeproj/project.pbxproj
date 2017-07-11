@@ -7,74 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F255C4E71F1477BC00BD10B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C4E61F1477BC00BD10B3 /* main.m */; };
-		F255C4EA1F1477BC00BD10B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C4E91F1477BC00BD10B3 /* AppDelegate.m */; };
-		F255C4ED1F1477BC00BD10B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C4EC1F1477BC00BD10B3 /* ViewController.m */; };
-		F255C4F01F1477BC00BD10B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C4EE1F1477BC00BD10B3 /* Main.storyboard */; };
-		F255C4F21F1477BC00BD10B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F255C4F11F1477BC00BD10B3 /* Assets.xcassets */; };
-		F255C4F51F1477BC00BD10B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C4F31F1477BC00BD10B3 /* LaunchScreen.storyboard */; };
-		F255C5001F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C4FF1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationTests.m */; };
-		F255C50B1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C50A1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationUITests.m */; };
-		F255C51E1F1479FE00BD10B3 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C51D1F1479FE00BD10B3 /* CustomizationViewController.m */; };
-		F255C5221F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5211F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.m */; };
+		F255C5571F1491FB00BD10B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C54B1F1491FB00BD10B3 /* AppDelegate.m */; };
+		F255C5581F1491FB00BD10B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F255C54C1F1491FB00BD10B3 /* Assets.xcassets */; };
+		F255C5591F1491FB00BD10B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C54D1F1491FB00BD10B3 /* LaunchScreen.storyboard */; };
+		F255C55A1F1491FB00BD10B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F255C54F1F1491FB00BD10B3 /* Main.storyboard */; };
+		F255C55B1F1491FB00BD10B3 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5521F1491FB00BD10B3 /* CustomizationViewController.m */; };
+		F255C55C1F1491FB00BD10B3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F255C5531F1491FB00BD10B3 /* Info.plist */; };
+		F255C55D1F1491FB00BD10B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5541F1491FB00BD10B3 /* main.m */; };
+		F255C55E1F1491FB00BD10B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5561F1491FB00BD10B3 /* ViewController.m */; };
+		F255C5661F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F255C4FC1F1477BC00BD10B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F255C4DA1F1477BC00BD10B3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F255C4E11F1477BC00BD10B3;
-			remoteInfo = "UINavigationController+DAPowerfulCustomization";
-		};
-		F255C5071F1477BC00BD10B3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F255C4DA1F1477BC00BD10B3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F255C4E11F1477BC00BD10B3;
-			remoteInfo = "UINavigationController+DAPowerfulCustomization";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F255C4E21F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UINavigationController+DAPowerfulCustomizationDemo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F255C4E61F1477BC00BD10B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F255C4E81F1477BC00BD10B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F255C4E91F1477BC00BD10B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F255C4EB1F1477BC00BD10B3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F255C4EC1F1477BC00BD10B3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F255C4EF1F1477BC00BD10B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F255C4F11F1477BC00BD10B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F255C4F41F1477BC00BD10B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F255C4F61F1477BC00BD10B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F255C4FB1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UINavigationController+DAPowerfulCustomizationDemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F255C4FF1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UINavigationController_DAPowerfulCustomizationTests.m; sourceTree = "<group>"; };
-		F255C5011F1477BC00BD10B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F255C5061F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "UINavigationController+DAPowerfulCustomizationDemoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F255C50A1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UINavigationController_DAPowerfulCustomizationUITests.m; sourceTree = "<group>"; };
-		F255C50C1F1477BC00BD10B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F255C51C1F1479FE00BD10B3 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
-		F255C51D1F1479FE00BD10B3 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
-		F255C5201F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+DAPowerfulCustomization.h"; sourceTree = "<group>"; };
-		F255C5211F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DAPowerfulCustomization.m"; sourceTree = "<group>"; };
+		F255C54A1F1491FB00BD10B3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F255C54B1F1491FB00BD10B3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F255C54C1F1491FB00BD10B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F255C54E1F1491FB00BD10B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F255C5501F1491FB00BD10B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F255C5511F1491FB00BD10B3 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
+		F255C5521F1491FB00BD10B3 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
+		F255C5531F1491FB00BD10B3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F255C5541F1491FB00BD10B3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F255C5551F1491FB00BD10B3 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F255C5561F1491FB00BD10B3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F255C5641F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+DAPowerfulCustomization.h"; sourceTree = "<group>"; };
+		F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DAPowerfulCustomization.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F255C4DF1F1477BC00BD10B3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C4F81F1477BC00BD10B3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C5031F1477BC00BD10B3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -87,9 +49,7 @@
 		F255C4D91F1477BC00BD10B3 = {
 			isa = PBXGroup;
 			children = (
-				F255C4E41F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomization */,
-				F255C4FE1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationTests */,
-				F255C5091F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationUITests */,
+				F255C5491F1491FB00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */,
 				F255C4E31F1477BC00BD10B3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,64 +58,37 @@
 			isa = PBXGroup;
 			children = (
 				F255C4E21F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo.app */,
-				F255C4FB1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoTests.xctest */,
-				F255C5061F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F255C4E41F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomization */ = {
+		F255C5491F1491FB00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */ = {
 			isa = PBXGroup;
 			children = (
-				F255C51F1F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization */,
-				F255C4E81F1477BC00BD10B3 /* AppDelegate.h */,
-				F255C4E91F1477BC00BD10B3 /* AppDelegate.m */,
-				F255C51C1F1479FE00BD10B3 /* CustomizationViewController.h */,
-				F255C51D1F1479FE00BD10B3 /* CustomizationViewController.m */,
-				F255C4EB1F1477BC00BD10B3 /* ViewController.h */,
-				F255C4EC1F1477BC00BD10B3 /* ViewController.m */,
-				F255C4EE1F1477BC00BD10B3 /* Main.storyboard */,
-				F255C4F11F1477BC00BD10B3 /* Assets.xcassets */,
-				F255C4F31F1477BC00BD10B3 /* LaunchScreen.storyboard */,
-				F255C4F61F1477BC00BD10B3 /* Info.plist */,
-				F255C4E51F1477BC00BD10B3 /* Supporting Files */,
+				F255C5631F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization */,
+				F255C54A1F1491FB00BD10B3 /* AppDelegate.h */,
+				F255C54B1F1491FB00BD10B3 /* AppDelegate.m */,
+				F255C5511F1491FB00BD10B3 /* CustomizationViewController.h */,
+				F255C5521F1491FB00BD10B3 /* CustomizationViewController.m */,
+				F255C5551F1491FB00BD10B3 /* ViewController.h */,
+				F255C5561F1491FB00BD10B3 /* ViewController.m */,
+				F255C54C1F1491FB00BD10B3 /* Assets.xcassets */,
+				F255C54D1F1491FB00BD10B3 /* LaunchScreen.storyboard */,
+				F255C54F1F1491FB00BD10B3 /* Main.storyboard */,
+				F255C5531F1491FB00BD10B3 /* Info.plist */,
+				F255C5541F1491FB00BD10B3 /* main.m */,
 			);
-			path = "UINavigationController+DAPowerfulCustomization";
+			path = "UINavigationController+DAPowerfulCustomizationDemo";
 			sourceTree = "<group>";
 		};
-		F255C4E51F1477BC00BD10B3 /* Supporting Files */ = {
+		F255C5631F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization */ = {
 			isa = PBXGroup;
 			children = (
-				F255C4E61F1477BC00BD10B3 /* main.m */,
+				F255C5641F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.h */,
+				F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		F255C4FE1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationTests */ = {
-			isa = PBXGroup;
-			children = (
-				F255C4FF1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationTests.m */,
-				F255C5011F1477BC00BD10B3 /* Info.plist */,
-			);
-			path = "UINavigationController+DAPowerfulCustomizationTests";
-			sourceTree = "<group>";
-		};
-		F255C5091F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationUITests */ = {
-			isa = PBXGroup;
-			children = (
-				F255C50A1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationUITests.m */,
-				F255C50C1F1477BC00BD10B3 /* Info.plist */,
-			);
-			path = "UINavigationController+DAPowerfulCustomizationUITests";
-			sourceTree = "<group>";
-		};
-		F255C51F1F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization */ = {
-			isa = PBXGroup;
-			children = (
-				F255C5201F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.h */,
-				F255C5211F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.m */,
-			);
-			path = "UINavigationController+DAPowerfulCustomization";
+			name = "UINavigationController+DAPowerfulCustomization";
+			path = "../../UINavigationController+DAPowerfulCustomization";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,42 +111,6 @@
 			productReference = F255C4E21F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F255C4FA1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F255C5121F1477BC00BD10B3 /* Build configuration list for PBXNativeTarget "UINavigationController+DAPowerfulCustomizationDemoTests" */;
-			buildPhases = (
-				F255C4F71F1477BC00BD10B3 /* Sources */,
-				F255C4F81F1477BC00BD10B3 /* Frameworks */,
-				F255C4F91F1477BC00BD10B3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F255C4FD1F1477BC00BD10B3 /* PBXTargetDependency */,
-			);
-			name = "UINavigationController+DAPowerfulCustomizationDemoTests";
-			productName = "UINavigationController+DAPowerfulCustomizationTests";
-			productReference = F255C4FB1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		F255C5051F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F255C5151F1477BC00BD10B3 /* Build configuration list for PBXNativeTarget "UINavigationController+DAPowerfulCustomizationDemoUITests" */;
-			buildPhases = (
-				F255C5021F1477BC00BD10B3 /* Sources */,
-				F255C5031F1477BC00BD10B3 /* Frameworks */,
-				F255C5041F1477BC00BD10B3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F255C5081F1477BC00BD10B3 /* PBXTargetDependency */,
-			);
-			name = "UINavigationController+DAPowerfulCustomizationDemoUITests";
-			productName = "UINavigationController+DAPowerfulCustomizationUITests";
-			productReference = F255C5061F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,18 +124,6 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = GM8DN4C6AS;
 						ProvisioningStyle = Automatic;
-					};
-					F255C4FA1F1477BC00BD10B3 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = GM8DN4C6AS;
-						ProvisioningStyle = Automatic;
-						TestTargetID = F255C4E11F1477BC00BD10B3;
-					};
-					F255C5051F1477BC00BD10B3 = {
-						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = GM8DN4C6AS;
-						ProvisioningStyle = Automatic;
-						TestTargetID = F255C4E11F1477BC00BD10B3;
 					};
 				};
 			};
@@ -256,8 +141,6 @@
 			projectRoot = "";
 			targets = (
 				F255C4E11F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */,
-				F255C4FA1F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoTests */,
-				F255C5051F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -267,23 +150,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F255C4F51F1477BC00BD10B3 /* LaunchScreen.storyboard in Resources */,
-				F255C4F21F1477BC00BD10B3 /* Assets.xcassets in Resources */,
-				F255C4F01F1477BC00BD10B3 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C4F91F1477BC00BD10B3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C5041F1477BC00BD10B3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				F255C55C1F1491FB00BD10B3 /* Info.plist in Resources */,
+				F255C55A1F1491FB00BD10B3 /* Main.storyboard in Resources */,
+				F255C5581F1491FB00BD10B3 /* Assets.xcassets in Resources */,
+				F255C5591F1491FB00BD10B3 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,60 +164,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F255C4ED1F1477BC00BD10B3 /* ViewController.m in Sources */,
-				F255C51E1F1479FE00BD10B3 /* CustomizationViewController.m in Sources */,
-				F255C5221F14901800BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */,
-				F255C4EA1F1477BC00BD10B3 /* AppDelegate.m in Sources */,
-				F255C4E71F1477BC00BD10B3 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C4F71F1477BC00BD10B3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F255C5001F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F255C5021F1477BC00BD10B3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F255C50B1F1477BC00BD10B3 /* UINavigationController_DAPowerfulCustomizationUITests.m in Sources */,
+				F255C5571F1491FB00BD10B3 /* AppDelegate.m in Sources */,
+				F255C55D1F1491FB00BD10B3 /* main.m in Sources */,
+				F255C5661F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */,
+				F255C55B1F1491FB00BD10B3 /* CustomizationViewController.m in Sources */,
+				F255C55E1F1491FB00BD10B3 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		F255C4FD1F1477BC00BD10B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F255C4E11F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */;
-			targetProxy = F255C4FC1F1477BC00BD10B3 /* PBXContainerItemProxy */;
-		};
-		F255C5081F1477BC00BD10B3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F255C4E11F1477BC00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */;
-			targetProxy = F255C5071F1477BC00BD10B3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		F255C4EE1F1477BC00BD10B3 /* Main.storyboard */ = {
+		F255C54D1F1491FB00BD10B3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F255C4EF1F1477BC00BD10B3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F255C4F31F1477BC00BD10B3 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F255C4F41F1477BC00BD10B3 /* Base */,
+				F255C54E1F1491FB00BD10B3 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F255C54F1F1491FB00BD10B3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F255C5501F1491FB00BD10B3 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -394,7 +235,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -437,7 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -471,56 +312,6 @@
 			};
 			name = Release;
 		};
-		F255C5131F1477BC00BD10B3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomizationTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomizationTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UINavigationController+DAPowerfulCustomizationDemo.app/UINavigationController+DAPowerfulCustomizationDemo";
-			};
-			name = Debug;
-		};
-		F255C5141F1477BC00BD10B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomizationTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomizationTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UINavigationController+DAPowerfulCustomizationDemo.app/UINavigationController+DAPowerfulCustomizationDemo";
-			};
-			name = Release;
-		};
-		F255C5161F1477BC00BD10B3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomizationUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomizationUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "UINavigationController+DAPowerfulCustomization";
-			};
-			name = Debug;
-		};
-		F255C5171F1477BC00BD10B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = GM8DN4C6AS;
-				INFOPLIST_FILE = "UINavigationController+DAPowerfulCustomizationUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "-.UINavigationController-DAPowerfulCustomizationUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "UINavigationController+DAPowerfulCustomization";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -538,24 +329,6 @@
 			buildConfigurations = (
 				F255C5101F1477BC00BD10B3 /* Debug */,
 				F255C5111F1477BC00BD10B3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F255C5121F1477BC00BD10B3 /* Build configuration list for PBXNativeTarget "UINavigationController+DAPowerfulCustomizationDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F255C5131F1477BC00BD10B3 /* Debug */,
-				F255C5141F1477BC00BD10B3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F255C5151F1477BC00BD10B3 /* Build configuration list for PBXNativeTarget "UINavigationController+DAPowerfulCustomizationDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F255C5161F1477BC00BD10B3 /* Debug */,
-				F255C5171F1477BC00BD10B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
