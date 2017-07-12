@@ -90,6 +90,22 @@ self.navigationItem.da_navigationBarStyle = UIBarStyleBlack;
 
 What you need is to override DANavigationControllerPopHandler methods in your view controller. It's very easy.
 
+### Use DANavigationItemUpdatesConfiguration
+
+Version 1.1.0 and a new api to UIViewController. It's `da_navigationItemUpdatesConfiguration`.  You can use this property to update navigation item automatically.
+
+How to use it? It's very easy. In your view controller, input some words like this:
+
+```objective-c
+DANavigationItemUpdate *bgUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarBackgroundViewAlpha" fromValue:@0 toValue:@1];
+DANavigationItemUpdate *statusBarUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_statusBarStyle" fromValue:@(UIStatusBarStyleDefault) toValue:@(UIStatusBarStyleLightContent)];
+DANavigationItemUpdate *tintColorUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTintColor" fromValue:[UIColor blackColor] toValue:[UIColor redColor]];
+DANavigationItemUpdate *barButtonItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"rightBarButtonItem" fromValue:self.navigationItem.rightBarButtonItem toValue:nil];
+DANavigationItemUpdate *titleAlphaItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTitleTextAttributes" fromValue:@{NSForegroundColorAttributeName: [UIColor greenColor]} toValue:@{NSForegroundColorAttributeName: [[UIColor greenColor] colorWithAlphaComponent:0]}];
+DANavigationItemUpdatesConfiguration *configuration = [DANavigationItemUpdatesConfiguration configurationWithObservedScrollView:self.tableView triggerOffset:CGPointMake(0, 200) navigationItemUpdates:@[bgUpdate, statusBarUpdate, tintColorUpdate, barButtonItemUpdate, titleAlphaItemUpdate]];
+self.da_navigationItemUpdatesConfiguration = configuration;
+```
+
 ## License
 
 **UINavigationController+DAPowerfulCustomization** is released under the MIT license. See LICENSE for details.
