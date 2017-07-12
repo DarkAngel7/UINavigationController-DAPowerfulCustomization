@@ -661,3 +661,153 @@ static inline void da_class_removeMethod(Class class, SEL originalSelector)
 }
 
 @end
+
+static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
+
+@implementation DANavigationItemUpdate
+
++ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nonnull id)fromValue toValue:(nonnull id)toValue
+{
+    DANavigationItemUpdate *update = [[DANavigationItemUpdate alloc] init];
+    update.navigationItemkeyPath = keyPath;
+    update.fromValue = fromValue;
+    update.toValue = toValue;
+    return update;
+}
+
+@end
+
+@interface DANavigationItemUpdatesConfiguration ()
+
+@property (nonatomic, weak) UINavigationItem *navigationItem;
+
+@property (nonatomic, assign) BOOL isObserving;
+
+@end
+
+@implementation DANavigationItemUpdatesConfiguration
+
++ (nullable instancetype)configurationWithObservedScrollView:(nonnull UIScrollView *)scrollView triggerOffset:(CGPoint)triggerOffset navigationItemUpdates:(nonnull NSArray<DANavigationItemUpdate *> *)navigationItemUpdates
+{
+    DANavigationItemUpdatesConfiguration *configuration = [[DANavigationItemUpdatesConfiguration alloc] init];
+    configuration.observedScrollView = scrollView;
+    configuration.triggerOffset = triggerOffset;
+    configuration.navigationItemUpdates = navigationItemUpdates;
+    configuration.automaticallyUpdateNavigationItemWhenScrollViewScrolls = YES;
+    return configuration;
+}
+
+- (void)setNavigationItem:(UINavigationItem *)navigationItem
+{
+    _navigationItem = navigationItem;
+    if (_navigationItem) {
+        [self startAutomaticallyUpdateNavigationItem];
+    } else {
+        [self stopAutomaticallyUpdateNavigationItem];
+    }
+}
+
+- (void)setAutomaticallyUpdateNavigationItemWhenScrollViewScrolls:(BOOL)automaticallyUpdateNavigationItemWhenScrollViewScrolls
+{
+    _automaticallyUpdateNavigationItemWhenScrollViewScrolls = automaticallyUpdateNavigationItemWhenScrollViewScrolls;
+    if (_automaticallyUpdateNavigationItemWhenScrollViewScrolls) {
+        [self startAutomaticallyUpdateNavigationItem];
+    } else {
+        [self stopAutomaticallyUpdateNavigationItem];
+    }
+}
+
+- (void)dealloc
+{
+    [self stopAutomaticallyUpdateNavigationItem];
+}
+
+- (void)startAutomaticallyUpdateNavigationItem
+{
+    [self stopAutomaticallyUpdateNavigationItem];
+    if (!self.navigationItem || !self.automaticallyUpdateNavigationItemWhenScrollViewScrolls) {
+        return;
+    }
+    self.isObserving = YES;
+    [self.observedScrollView.panGestureRecognizer addTarget:self action:@selector(updateNavigationItemPropertiesWhenScrollViewScrolls)];
+    [self updateNavigationItemPropertiesWhenScrollViewScrolls];
+}
+
+- (void)stopAutomaticallyUpdateNavigationItem
+{
+    if (!self.isObserving) {
+        return;
+    }
+    self.isObserving = NO;
+    [self.observedScrollView.panGestureRecognizer removeTarget:self action:@selector(updateNavigationItemPropertiesWhenScrollViewScrolls)];
+}
+
+- (void)updateNavigationItem:(CGFloat)percent
+{
+    for (DANavigationItemUpdate *update in self.navigationItemUpdates) {
+        id value;
+        if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarBackgroundViewAlpha"]) {
+            value = @(([update.toValue doubleValue] - [update.fromValue doubleValue]) * percent);
+        } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTintColor"] || [update.navigationItemkeyPath isEqualToString:@"da_navigationBarBarTintColor"]) {
+            value = [self colorFromColor:update.fromValue toColor:update.toValue percent:percent];
+        } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTitleTextAttributes"]) {
+            NSDictionary *fromAttributes = update.fromValue;
+            NSDictionary *toAttibutes = update.toValue;
+            NSMutableDictionary *newAttributes = @{}.mutableCopy;
+            [fromAttributes enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[UIColor class]] && toAttibutes[key]) {
+                    newAttributes[key] = [self colorFromColor:obj toColor:toAttibutes[key] percent:percent];
+                } 
+            }];
+            value = newAttributes;
+        }
+        if (value) {
+            [self.navigationItem setValue:value forKey:update.navigationItemkeyPath];
+        } else {
+            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+                [self.navigationItem setValue:percent >= kNavigationItemUpdateTriggerPercent ? update.toValue : update.fromValue forKey:update.navigationItemkeyPath];
+            }];
+        }
+    }
+}
+
+- (void)updateNavigationItemPropertiesWhenScrollViewScrolls
+{
+    CGFloat percent = [self currentScrollViewOffsetPercent];
+    [self updateNavigationItem:percent];
+}
+
+- (CGFloat)currentScrollViewOffsetPercent
+{
+    CGPoint contentOffset = self.observedScrollView.contentOffset;
+    CGPoint triggerOffset = self.triggerOffset;
+    CGFloat xPercent = MIN(1, MAX(0, contentOffset.x / triggerOffset.x));
+    CGFloat yPercent = MIN(1, MAX(0, contentOffset.y / triggerOffset.y));
+    CGFloat percent = MAX(xPercent, yPercent);
+    return percent;
+}
+
+- (UIColor *)colorFromColor:(UIColor *)fromColor toColor:(UIColor *)toColor percent:(CGFloat)percent
+{
+    CGFloat red1, green1, blue1, alpha1;
+    [fromColor getRed:&red1 green:&green1 blue:&blue1 alpha:&alpha1];
+    CGFloat red2, green2, blue2, alpha2;
+    [toColor getRed:&red2 green:&green2 blue:&blue2 alpha:&alpha2];
+    return [UIColor colorWithRed:red1 * percent + red2 * (1 - percent) green:green1 * percent + green2 * (1 - percent) blue:blue1 * percent + blue2 * (1 - percent) alpha:alpha1 * percent + alpha2 * (1 - percent)];
+}
+
+@end
+
+@implementation UIViewController (DAPowerfulCustomization)
+
+- (void)setDa_navigationItemUpdatesConfiguration:(DANavigationItemUpdatesConfiguration *)da_navigationItemUpdatesConfiguration
+{
+    objc_setAssociatedObject(self, @selector(da_navigationItemUpdatesConfiguration), da_navigationItemUpdatesConfiguration, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    da_navigationItemUpdatesConfiguration.navigationItem = self.navigationItem;
+}
+- (DANavigationItemUpdatesConfiguration *)da_navigationItemUpdatesConfiguration
+{
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+@end

@@ -80,9 +80,42 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
+ Temporary support only some properties, not all.
+ */
+@interface DANavigationItemUpdate : NSObject
+
+@property (nonatomic, copy, nonnull) NSString *navigationItemkeyPath;
+
+@property (nonatomic, strong, nullable) id fromValue;
+
+@property (nonatomic, strong, nonnull) id toValue;
+
++ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nonnull id)fromValue toValue:(nonnull id)toValue;
+
+@end
+
+@interface DANavigationItemUpdatesConfiguration : NSObject
+
+@property (nonatomic, weak) UIScrollView *observedScrollView;
+
+@property (nonatomic, assign) CGPoint triggerOffset;
+
+@property (nonatomic, copy, nonnull) NSArray<DANavigationItemUpdate *> *navigationItemUpdates;
+/**
+ default is YES
+ */
+@property (nonatomic, assign) BOOL automaticallyUpdateNavigationItemWhenScrollViewScrolls;
+
++ (nullable instancetype)configurationWithObservedScrollView:(nonnull UIScrollView *)scrollView triggerOffset:(CGPoint)triggerOffset navigationItemUpdates:(nonnull NSArray<DANavigationItemUpdate *> *)navigationItemUpdates;
+
+@end
+/**
  Make every UIViewController conforms to protocol <DANavigationControllerPopHandler>
  */
 @interface UIViewController (DAPowerfulCustomization) <DANavigationControllerPopHandler>
+
+@property (nonatomic, strong, nullable) DANavigationItemUpdatesConfiguration *da_navigationItemUpdatesConfiguration;
+
 @end
 
 NS_ASSUME_NONNULL_END
