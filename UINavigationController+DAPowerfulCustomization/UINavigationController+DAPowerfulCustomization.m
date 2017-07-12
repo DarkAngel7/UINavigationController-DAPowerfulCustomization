@@ -66,44 +66,44 @@ static inline void da_class_removeMethod(Class class, SEL originalSelector)
 - (void)setDa_statusBarStyle:(UIStatusBarStyle)da_statusBarStyle
 {
     UINavigationBar *navigationBar = self.da_navigationBar;
+    if (self.da_statusBarStyle == da_statusBarStyle) {
+        return;
+    }
+    objc_setAssociatedObject(self, @selector(da_statusBarStyle), @(da_statusBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     UINavigationItem *item = navigationBar.topItem;
     // Here note the item is at the top of the stack or not
     if (self == item) {
-        if (self.da_statusBarStyle == da_statusBarStyle) {
-            return;
-        }
         // Status bar update, we need to let navigationController update
         [self.da_navigationController setNeedsStatusBarAppearanceUpdate];
     }
-    objc_setAssociatedObject(self, @selector(da_statusBarStyle), @(da_statusBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setDa_statusBarAnimation:(UIStatusBarAnimation)da_statusBarAnimation
 {
+    if (self.da_statusBarAnimation == da_statusBarAnimation) {
+        return;
+    }
+    objc_setAssociatedObject(self, @selector(da_statusBarAnimation), @(da_statusBarAnimation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     UINavigationBar *navigationBar = self.da_navigationBar;
     UINavigationItem *item = navigationBar.topItem;
     if (self == item) {
-        if (self.da_statusBarAnimation == da_statusBarAnimation) {
-            return;
-        }
         // Status bar update, we need to let navigationController update
         [self.da_navigationController setNeedsStatusBarAppearanceUpdate];
     }
-    objc_setAssociatedObject(self, @selector(da_statusBarAnimation), @(da_statusBarAnimation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setDa_statusBarHidden:(BOOL)da_statusBarHidden
 {
+    if (self.da_statusBarHidden == da_statusBarHidden) {
+        return;
+    }
+    objc_setAssociatedObject(self, @selector(da_statusBarHidden), @(da_statusBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     UINavigationBar *navigationBar = self.da_navigationBar;
     UINavigationItem *item = navigationBar.topItem;
     if (self == item) {
-        if (self.da_statusBarHidden == da_statusBarHidden) {
-            return;
-        }
         // Status bar update, we need to let navigationController update
         [self.da_navigationController setNeedsStatusBarAppearanceUpdate];
     }
-    objc_setAssociatedObject(self, @selector(da_statusBarHidden), @(da_statusBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setDa_navigationBarStyle:(UIBarStyle)da_navigationBarStyle
