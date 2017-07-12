@@ -25,7 +25,7 @@ pod 'UINavigationController+DAPowerfulCustomization'
 ```
 ## Requirements
 
- Minimum iOS Target  **iOS 9.0**.
+ Minimum iOS Target  **iOS 8.0**.
 
 ## Architecture
 

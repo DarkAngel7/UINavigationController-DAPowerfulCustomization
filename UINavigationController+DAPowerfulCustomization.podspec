@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author             = "DarkAngel"
   s.social_media_url   = "http://weibo.com/darkangel7"
-  s.platform     = :ios, "9.0"
+  s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/DarkAngel7/UINavigationController-DAPowerfulCustomization.git", :tag => "#{s.version}" }
   s.source_files  = "UINavigationController+DAPowerfulCustomization/", "UINavigationController+DAPowerfulCustomization/**/*.{h,m}"
   s.public_header_files = 'UINavigationController+DAPowerfulCustomization/UINavigationController+DAPowerfulCustomization.h'
