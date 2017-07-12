@@ -47,7 +47,13 @@ static inline void da_class_removeMethod(Class class, SEL originalSelector)
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     class_replaceMethod(class, originalSelector, imp_implementationWithBlock(^{}), method_getTypeEncoding(originalMethod));
 }
-
+/**
+ Calculate median value
+ */
+static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat percent)
+{
+    return a + (b - a) * percent;
+}
 
 /**
  A private extension to expand UINavigationItem
@@ -662,11 +668,11 @@ static inline void da_class_removeMethod(Class class, SEL originalSelector)
 
 @end
 
-static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
+static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 
 @implementation DANavigationItemUpdate
 
-+ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nonnull id)fromValue toValue:(nonnull id)toValue
++ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nullable id)fromValue toValue:(nullable id)toValue
 {
     DANavigationItemUpdate *update = [[DANavigationItemUpdate alloc] init];
     update.navigationItemkeyPath = keyPath;
@@ -683,9 +689,13 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
 
 @property (nonatomic, assign) BOOL isObserving;
 
+@property (nonatomic, assign) CGFloat lastPercent;
+
 @end
 
 @implementation DANavigationItemUpdatesConfiguration
+
+#pragma mark - Life Cycle
 
 + (nullable instancetype)configurationWithObservedScrollView:(nonnull UIScrollView *)scrollView triggerOffset:(CGPoint)triggerOffset navigationItemUpdates:(nonnull NSArray<DANavigationItemUpdate *> *)navigationItemUpdates
 {
@@ -696,6 +706,24 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
     configuration.automaticallyUpdateNavigationItemWhenScrollViewScrolls = YES;
     return configuration;
 }
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.triggerPercent = kNavigationItemUpdateTriggerPercent;
+        self.automaticallyUpdateNavigationItemWhenScrollViewScrolls = YES;
+        self.lastPercent = -1;
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [self stopAutomaticallyUpdateNavigationItem];
+}
+
+#pragma mark - Setters and Getters
 
 - (void)setNavigationItem:(UINavigationItem *)navigationItem
 {
@@ -717,10 +745,7 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
     }
 }
 
-- (void)dealloc
-{
-    [self stopAutomaticallyUpdateNavigationItem];
-}
+#pragma mark - Private Methods
 
 - (void)startAutomaticallyUpdateNavigationItem
 {
@@ -729,7 +754,7 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
         return;
     }
     self.isObserving = YES;
-    [self.observedScrollView.panGestureRecognizer addTarget:self action:@selector(updateNavigationItemPropertiesWhenScrollViewScrolls)];
+    [self.observedScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld | NSKeyValueObservingOptionPrior | NSKeyValueObservingOptionInitial context:@"DANavigationItemUpdate"];
     [self updateNavigationItemPropertiesWhenScrollViewScrolls];
 }
 
@@ -739,7 +764,25 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
         return;
     }
     self.isObserving = NO;
-    [self.observedScrollView.panGestureRecognizer removeTarget:self action:@selector(updateNavigationItemPropertiesWhenScrollViewScrolls)];
+    [self.observedScrollView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == @"DANavigationItemUpdate") {
+        [self updateNavigationItemPropertiesWhenScrollViewScrolls];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)updateNavigationItemPropertiesWhenScrollViewScrolls
+{
+    CGFloat percent = [self currentScrollViewOffsetPercent];
+    if (self.lastPercent != percent) {
+        [self updateNavigationItem:percent];
+        self.lastPercent = percent;
+    }
 }
 
 - (void)updateNavigationItem:(CGFloat)percent
@@ -747,7 +790,7 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
     for (DANavigationItemUpdate *update in self.navigationItemUpdates) {
         id value;
         if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarBackgroundViewAlpha"]) {
-            value = @(([update.toValue doubleValue] - [update.fromValue doubleValue]) * percent);
+            value = @(da_calculateMedianValue([update.fromValue doubleValue], [update.toValue doubleValue], percent));
         } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTintColor"] || [update.navigationItemkeyPath isEqualToString:@"da_navigationBarBarTintColor"]) {
             value = [self colorFromColor:update.fromValue toColor:update.toValue percent:percent];
         } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTitleTextAttributes"]) {
@@ -757,25 +800,22 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
             [fromAttributes enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 if ([obj isKindOfClass:[UIColor class]] && toAttibutes[key]) {
                     newAttributes[key] = [self colorFromColor:obj toColor:toAttibutes[key] percent:percent];
-                } 
+                }
             }];
             value = newAttributes;
         }
         if (value) {
             [self.navigationItem setValue:value forKey:update.navigationItemkeyPath];
         } else {
-            [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
-                [self.navigationItem setValue:percent >= kNavigationItemUpdateTriggerPercent ? update.toValue : update.fromValue forKey:update.navigationItemkeyPath];
+            NSTimeInterval animationDuration = [update.navigationItemkeyPath hasPrefix:@"da"] ? .3 : 0;
+            [UIView animateWithDuration:animationDuration animations:^{
+                [self.navigationItem setValue:percent >= self.triggerPercent ? update.toValue : update.fromValue forKey:update.navigationItemkeyPath];
             }];
         }
     }
 }
 
-- (void)updateNavigationItemPropertiesWhenScrollViewScrolls
-{
-    CGFloat percent = [self currentScrollViewOffsetPercent];
-    [self updateNavigationItem:percent];
-}
+#pragma mark - Helpers
 
 - (CGFloat)currentScrollViewOffsetPercent
 {
@@ -793,9 +833,8 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .8;
     [fromColor getRed:&red1 green:&green1 blue:&blue1 alpha:&alpha1];
     CGFloat red2, green2, blue2, alpha2;
     [toColor getRed:&red2 green:&green2 blue:&blue2 alpha:&alpha2];
-    return [UIColor colorWithRed:red1 * percent + red2 * (1 - percent) green:green1 * percent + green2 * (1 - percent) blue:blue1 * percent + blue2 * (1 - percent) alpha:alpha1 * percent + alpha2 * (1 - percent)];
+    return [UIColor colorWithRed:da_calculateMedianValue(red1, red2, percent) green:da_calculateMedianValue(green1, green2, percent) blue:da_calculateMedianValue(blue1, blue2, percent) alpha:da_calculateMedianValue(alpha1, alpha2, percent)];
 }
-
 @end
 
 @implementation UIViewController (DAPowerfulCustomization)

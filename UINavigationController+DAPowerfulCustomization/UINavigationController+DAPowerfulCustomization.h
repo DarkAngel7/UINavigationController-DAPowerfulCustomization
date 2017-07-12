@@ -80,32 +80,65 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- Temporary support only some properties, not all.
+ Some navigationItem updates setting using for DANavigationItemUpdatesConfiguration
  */
 @interface DANavigationItemUpdate : NSObject
-
+/**
+ The UINavigationItem keyPath
+ */
 @property (nonatomic, copy, nonnull) NSString *navigationItemkeyPath;
-
+/**
+ From value
+ */
 @property (nonatomic, strong, nullable) id fromValue;
-
+/**
+ To value
+ */
 @property (nonatomic, strong, nonnull) id toValue;
+/**
+ Quickly create a update instance
 
-+ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nonnull id)fromValue toValue:(nonnull id)toValue;
+ @param keyPath UINavigationItem keyPath
+ @param fromValue fromValue
+ @param toValue toValue
+ @return a update instance
+ */
++ (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nullable id)fromValue toValue:(nullable id)toValue;
 
 @end
 
+/**
+ If you want navigationItem update automatically, you need to create a configuration and set it to a UIViewController
+ */
 @interface DANavigationItemUpdatesConfiguration : NSObject
-
+/**
+ The scrollView we observe, when it scrolls we update navigationItem according it's contentOffset
+ */
 @property (nonatomic, weak) UIScrollView *observedScrollView;
-
+/**
+ The trigger offset when update begins. When scrollView contentOffset is greater than it, the update will change to toValue, otherwise fromeValue
+ */
 @property (nonatomic, assign) CGPoint triggerOffset;
-
+/**
+ Some keyPath update need to update at a appropriate percent. The default value is 0.5.
+ */
+@property (nonatomic, assign) CGFloat triggerPercent;
+/**
+ All updates you want navigationItem to update automatically.
+ */
 @property (nonatomic, copy, nonnull) NSArray<DANavigationItemUpdate *> *navigationItemUpdates;
 /**
- default is YES
+ If you want navigation item automatically update according the triggerOffset and triggerPercent, set it to YES. The default value is YES.
  */
 @property (nonatomic, assign) BOOL automaticallyUpdateNavigationItemWhenScrollViewScrolls;
+/**
+ Quickly create a instance
 
+ @param scrollView the scrollView we observed
+ @param triggerOffset when the scrollView scrolls, it determines when to update
+ @param navigationItemUpdates all you want the navigation item to update
+ @return a configuration instance
+ */
 + (nullable instancetype)configurationWithObservedScrollView:(nonnull UIScrollView *)scrollView triggerOffset:(CGPoint)triggerOffset navigationItemUpdates:(nonnull NSArray<DANavigationItemUpdate *> *)navigationItemUpdates;
 
 @end
@@ -113,7 +146,9 @@ NS_ASSUME_NONNULL_BEGIN
  Make every UIViewController conforms to protocol <DANavigationControllerPopHandler>
  */
 @interface UIViewController (DAPowerfulCustomization) <DANavigationControllerPopHandler>
-
+/**
+ You can use this property to update navigation item automatically, some details see DANavigationItemUpdatesConfiguration
+ */
 @property (nonatomic, strong, nullable) DANavigationItemUpdatesConfiguration *da_navigationItemUpdatesConfiguration;
 
 @end
