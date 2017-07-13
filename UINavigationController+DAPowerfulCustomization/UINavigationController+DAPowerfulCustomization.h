@@ -114,7 +114,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The scrollView we observe, when it scrolls we update navigationItem according it's contentOffset
  */
-@property (nonatomic, weak) UIScrollView *observedScrollView;
+@property (nonatomic, strong) UIScrollView *observedScrollView;
 /**
  The trigger offset when update begins. When scrollView contentOffset is greater than it, the update will change to toValue, otherwise fromeValue
  */
