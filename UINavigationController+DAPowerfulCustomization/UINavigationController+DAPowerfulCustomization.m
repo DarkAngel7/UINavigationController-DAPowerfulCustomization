@@ -479,7 +479,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         UIViewController *fromVC = [tc viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *toVC = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
         if ([toVC isKindOfClass:[UINavigationController class]]) {
-            return;
+            toVC = [(UINavigationController *)toVC viewControllers].lastObject;
         }
         [toVC.view layoutIfNeeded];
         
