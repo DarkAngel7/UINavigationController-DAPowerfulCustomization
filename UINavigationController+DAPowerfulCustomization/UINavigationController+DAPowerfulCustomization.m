@@ -472,7 +472,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     if (!tc) {
         // Update navigation bar based on the navigationItem of topViewController
         UIViewController *vc = self.topViewController;
-        [vc.view layoutIfNeeded];
+        [vc.view setNeedsLayout];
         [self da_updateNavigationBarWithNavigationItem:vc.navigationItem];
         [self da_updateStatusBarWithViewController:vc];
     } else {
@@ -481,7 +481,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         if ([toVC isKindOfClass:[UINavigationController class]]) {
             toVC = [(UINavigationController *)toVC viewControllers].lastObject;
         }
-        [toVC.view layoutIfNeeded];
+        [toVC.view setNeedsLayout];
         
         // When navigationBar doesn't need to update hidden property, use fade transition animation
         if (toVC.navigationItem.da_navigationBarHidden == self.navigationBarHidden && !self.navigationBarHidden) {
