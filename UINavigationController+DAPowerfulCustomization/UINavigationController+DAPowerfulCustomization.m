@@ -478,6 +478,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     } else {
         UIViewController *fromVC = [tc viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *toVC = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
+        if ([toVC isKindOfClass:[UINavigationController class]]) {
+            return;
+        }
         [toVC.view layoutIfNeeded];
         
         // When navigationBar doesn't need to update hidden property, use fade transition animation
