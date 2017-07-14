@@ -371,7 +371,13 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     // Call the default implementation
     [self da_viewDidLoad];
     // Update the bar appearance
-    [self da_updateNavigationBarAndStatusBarAppearance];
+    if ([UIDevice currentDevice].systemVersion.floatValue < 10) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self da_updateNavigationBarAndStatusBarAppearance];
+        });
+    } else {
+        [self da_updateNavigationBarAndStatusBarAppearance];
+    }
     // Change the delegate of interactivePopGestureRecognizer, we manage it ourselves
     self.interactivePopGestureRecognizer.delegate = [self da_popGestureDelegate];
 }
