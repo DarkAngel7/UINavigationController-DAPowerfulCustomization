@@ -54,7 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) IBInspectable UIStatusBarAnimation da_statusBarAnimation;
 @property (nonatomic, assign) IBInspectable BOOL da_statusBarHidden;
 @property (nonatomic, assign) IBInspectable UIBarStyle da_navigationBarStyle;
-@property (nonatomic, assign, getter=isDa_navigationBarTranslucent) IBInspectable BOOL da_navigationBarTranslucent;
 @property (nonatomic, strong, nullable) IBInspectable UIColor *da_navigationBarTintColor;
 @property (nonatomic, strong, nullable) IBInspectable UIColor *da_navigationBarBarTintColor;
 @property (nonatomic, assign) IBInspectable BOOL da_navigationBarHidden;

@@ -126,19 +126,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     objc_setAssociatedObject(self, @selector(da_navigationBarStyle), @(da_navigationBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (void)setDa_navigationBarTranslucent:(BOOL)da_navigationBarTranslucent
-{
-    UINavigationBar *navigationBar = self.da_navigationBar;
-    UINavigationItem *item = navigationBar.topItem;
-    if (self == item) {
-        if (self.isDa_navigationBarTranslucent == da_navigationBarTranslucent) {
-            return;
-        }
-        self.da_navigationBar.translucent = da_navigationBarTranslucent;
-    }
-    objc_setAssociatedObject(self, @selector(isDa_navigationBarTranslucent), @(da_navigationBarTranslucent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 - (void)setDa_navigationBarTintColor:(UIColor *)da_navigationBarTintColor
 {
     UINavigationBar *navigationBar = self.da_navigationBar;
@@ -245,12 +232,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     NSNumber *style = objc_getAssociatedObject(self, _cmd);
     return style ? style.integerValue : [UINavigationBar appearance].barStyle;
-}
-
-- (BOOL)isDa_navigationBarTranslucent
-{
-    NSNumber *isTranslucent = objc_getAssociatedObject(self, _cmd);
-    return isTranslucent ? isTranslucent.boolValue : YES;
 }
 
 - (UIColor *)da_navigationBarTintColor
@@ -371,7 +352,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     // Call the default implementation
     [self da_viewDidLoad];
     // Update the bar appearance
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+    if ([UIDevice currentDevice].systemVersion.floatValue < 10) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self da_updateNavigationBarAndStatusBarAppearance];
         });
@@ -603,7 +584,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     // Just update
     self.navigationBar.barStyle = navigationItem.da_navigationBarStyle;
-    self.navigationBar.translucent = navigationItem.isDa_navigationBarTranslucent;
     self.navigationBar.tintColor = navigationItem.da_navigationBarTintColor;
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
