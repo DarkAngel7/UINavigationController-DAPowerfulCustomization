@@ -587,7 +587,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
-    if ([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && [UIDevice currentDevice].systemVersion.floatValue < 11) {
+    if (([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && [UIDevice currentDevice].systemVersion.floatValue < 11) {
         backgroundView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
         if (!self.transitionCoordinator.isInteractive) {
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
