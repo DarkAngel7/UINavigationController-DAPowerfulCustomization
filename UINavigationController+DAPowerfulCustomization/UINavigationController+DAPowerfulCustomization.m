@@ -458,6 +458,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     if (!tc) {
         // Update navigation bar based on the navigationItem of topViewController
         UIViewController *vc = self.topViewController;
+        if (![self da_shouldUpdateBarsWithViewController:vc]) {
+            return;
+        }
         [vc.view setNeedsLayout];
         [self da_updateNavigationBarWithNavigationItem:vc.navigationItem];
         [self da_updateStatusBarWithViewController:vc];
@@ -466,6 +469,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         UIViewController *toVC = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
         if ([toVC isKindOfClass:[UINavigationController class]]) {
             toVC = [(UINavigationController *)toVC viewControllers].lastObject;
+        }
+        if (![self da_shouldUpdateBarsWithViewController:toVC]) {
+            return;
         }
         [toVC.view setNeedsLayout];
         
@@ -549,6 +555,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             // Update bar appearance again
             UIViewController *vc = context.isCancelled ? fromVC : toVC;
+            if (![self da_shouldUpdateBarsWithViewController:vc]) {
+                return;
+            }
             [self da_updateNavigationBarWithNavigationItem:vc.navigationItem];
             [self da_updateStatusBarWithViewController:vc];
         }];
@@ -556,6 +565,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         if (systemVersion < 11) {
             void (^cancel)(id) = ^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 if (context.isCancelled) {
+                    if (![self da_shouldUpdateBarsWithViewController:fromVC]) {
+                        return;
+                    }
                     [self da_updateStatusBarWithViewController:fromVC];
                     [self da_updateNavigationBarWithNavigationItem:fromVC.navigationItem];
                 }
@@ -617,6 +629,15 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     self.da_transitionViewController = viewController;
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)da_shouldUpdateBarsWithViewController:(UIViewController *)vc
+{
+    // Fix bugs of some system UINavigationController subclasses
+    if (!vc || [vc isKindOfClass:NSClassFromString([@"PUUI" stringByAppendingString:@"ImageViewController"])] || [vc isKindOfClass:NSClassFromString([@"CAMI" stringByAppendingString:@"magePickerCameraViewController"])]) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - Setters and Getters
