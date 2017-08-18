@@ -399,6 +399,16 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     return vcs;
 }
 
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return self.da_transitionViewController ? : self.topViewController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    return self.da_transitionViewController ? : self.topViewController;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     UIViewController *vc = self.da_transitionViewController ? : self.topViewController;
@@ -845,6 +855,38 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 @end
 
 @implementation UIViewController (DAPowerfulCustomization)
+
+#pragma mark - Hook
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        da_class_methodSwizzling([self class], @selector(preferredStatusBarStyle), @selector(da_preferredStatusBarStyle));
+        da_class_methodSwizzling([self class], @selector(prefersStatusBarHidden), @selector(da_prefersStatusBarHidden));
+        da_class_methodSwizzling([self class], @selector(preferredStatusBarUpdateAnimation), @selector(da_preferredStatusBarUpdateAnimation));
+    });
+}
+
+- (UIStatusBarStyle)da_preferredStatusBarStyle
+{
+    NSNumber *style = objc_getAssociatedObject(self.navigationItem, @selector(da_statusBarStyle));
+    return style ? style.integerValue : [self da_preferredStatusBarStyle];
+}
+
+- (BOOL)da_prefersStatusBarHidden
+{
+    NSNumber *hidden = objc_getAssociatedObject(self.navigationItem, @selector(da_statusBarHidden));
+    return hidden ? hidden.boolValue : [self da_prefersStatusBarHidden];
+}
+
+- (UIStatusBarAnimation)da_preferredStatusBarUpdateAnimation
+{
+    NSNumber *animation = objc_getAssociatedObject(self.navigationItem, @selector(da_statusBarAnimation));
+    return animation ? animation.integerValue : [self da_preferredStatusBarUpdateAnimation];
+}
+
+#pragma mark - Setters and Getters
 
 - (void)setDa_navigationItemUpdatesConfiguration:(DANavigationItemUpdatesConfiguration *)da_navigationItemUpdatesConfiguration
 {
