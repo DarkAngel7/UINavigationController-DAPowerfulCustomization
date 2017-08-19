@@ -654,7 +654,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (void)setDa_transitionViewController:(UIViewController *)da_transitionViewController
 {
-    objc_setAssociatedObject(self, @selector(da_transitionViewController), da_transitionViewController, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(da_transitionViewController), da_transitionViewController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (UIViewController *)da_transitionViewController
