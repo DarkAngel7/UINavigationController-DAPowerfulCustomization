@@ -401,12 +401,20 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (UIViewController *)childViewControllerForStatusBarStyle
 {
-    return self.da_transitionViewController ? : self.topViewController;
+    if (self.da_transitionViewController.parentViewController == self) {
+        return self.da_transitionViewController ? : self.topViewController;
+    } else {
+        return self.topViewController;
+    }
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden
 {
-    return self.da_transitionViewController ? : self.topViewController;
+    if (self.da_transitionViewController.parentViewController == self) {
+        return self.da_transitionViewController ? : self.topViewController;
+    } else {
+        return self.topViewController;
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
