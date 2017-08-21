@@ -29,7 +29,6 @@ static NSString *const kBackgroundViewAlphaSegueId = @"BackgroundViewAlpha";
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self setupAutomaticallyUpdateNavigationItemConfiguration];
-    
 }
 
 - (void)setupAutomaticallyUpdateNavigationItemConfiguration
@@ -39,7 +38,7 @@ static NSString *const kBackgroundViewAlphaSegueId = @"BackgroundViewAlpha";
     DANavigationItemUpdate *tintColorUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTintColor" fromValue:[UIColor blackColor] toValue:[UIColor redColor]];
     DANavigationItemUpdate *barButtonItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"rightBarButtonItem" fromValue:self.navigationItem.rightBarButtonItem toValue:nil];
     DANavigationItemUpdate *titleAlphaItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTitleTextAttributes" fromValue:@{NSForegroundColorAttributeName: [UIColor greenColor]} toValue:@{NSForegroundColorAttributeName: [[UIColor greenColor] colorWithAlphaComponent:0]}];
-    DANavigationItemUpdatesConfiguration *configuration = [DANavigationItemUpdatesConfiguration configurationWithObservedScrollView:self.tableView triggerOffset:CGPointMake(0, 200) navigationItemUpdates:@[bgUpdate, statusBarUpdate, tintColorUpdate, barButtonItemUpdate, titleAlphaItemUpdate]];
+    DANavigationItemUpdatesConfiguration *configuration = [DANavigationItemUpdatesConfiguration configurationWithObservedScrollView:self.tableView triggerOffset:CGPointMake(0, 200) navigationItemUpdates:@[bgUpdate, statusBarUpdate,tintColorUpdate, barButtonItemUpdate, titleAlphaItemUpdate]];
     self.da_navigationItemUpdatesConfiguration = configuration;
 }
 
@@ -58,6 +57,7 @@ static NSString *const kBackgroundViewAlphaSegueId = @"BackgroundViewAlpha";
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     UIViewController *destinationVC = segue.destinationViewController;
+    destinationVC.view.backgroundColor = [UIColor blueColor];
     UITableViewCell *cell = sender;
     UILabel *propertyLabel = [cell viewWithTag:999];
     NSString *key = [NSString stringWithFormat:@"da_%@", propertyLabel.text];

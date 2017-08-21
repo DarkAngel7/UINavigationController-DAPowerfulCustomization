@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "UINavigationController+DAPowerfulCustomization.h"
 
 @interface ViewController ()
 
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.da_navigationBarHidden = YES;
+    self.navigationItem.da_statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 

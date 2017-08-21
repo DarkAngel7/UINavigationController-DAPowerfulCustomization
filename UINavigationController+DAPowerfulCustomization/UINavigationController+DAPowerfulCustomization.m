@@ -401,41 +401,12 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (UIViewController *)childViewControllerForStatusBarStyle
 {
-    if (self.da_transitionViewController.parentViewController == self) {
-        return self.da_transitionViewController ? : self.topViewController;
-    } else {
-        return self.topViewController;
-    }
+    return self.da_transitionViewController ? : self.topViewController;
 }
 
 - (UIViewController *)childViewControllerForStatusBarHidden
 {
-    if (self.da_transitionViewController.parentViewController == self) {
-        return self.da_transitionViewController ? : self.topViewController;
-    } else {
-        return self.topViewController;
-    }
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    UIViewController *vc = self.da_transitionViewController ? : self.topViewController;
-    NSNumber *style = objc_getAssociatedObject(vc.navigationItem, @selector(da_statusBarStyle));
-    return style ? style.integerValue : vc.preferredStatusBarStyle;
-}
-
-- (BOOL)prefersStatusBarHidden
-{
-    UIViewController *vc = self.da_transitionViewController ? : self.topViewController;
-    NSNumber *hidden = objc_getAssociatedObject(vc.navigationItem, @selector(da_statusBarHidden));
-    return hidden ? hidden.boolValue : vc.prefersStatusBarHidden;
-}
-
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation
-{
-    UIViewController *vc = self.da_transitionViewController ? : self.topViewController;
-    NSNumber *animation = objc_getAssociatedObject(vc.navigationItem, @selector(da_statusBarAnimation));
-    return animation ? animation.integerValue : vc.preferredStatusBarUpdateAnimation;
+    return self.da_transitionViewController ? : self.topViewController;
 }
 
 - (BOOL)da_navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item
