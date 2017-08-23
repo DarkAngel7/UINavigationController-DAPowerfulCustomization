@@ -801,11 +801,11 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
             value = newAttributes;
         }
         if (value) {
-            [self.navigationItem setValue:value forKey:update.navigationItemkeyPath];
+            [self.navigationItem setValue:value forKeyPath:update.navigationItemkeyPath];
         } else {
             NSTimeInterval animationDuration = [update.navigationItemkeyPath hasPrefix:@"da"] ? .3 : 0;
             [UIView animateWithDuration:animationDuration animations:^{
-                [self.navigationItem setValue:percent >= self.triggerPercent ? update.toValue : update.fromValue forKey:update.navigationItemkeyPath];
+                [self.navigationItem setValue:percent >= self.triggerPercent ? update.toValue : update.fromValue forKeyPath:update.navigationItemkeyPath];
             }];
         }
     }
