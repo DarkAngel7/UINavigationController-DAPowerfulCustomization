@@ -429,10 +429,13 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     if (shouldPop) {
         return [self da_navigationBar:navigationBar shouldPopItem:item];
     } else {
-        [UIView animateWithDuration:.13 animations:^{
-            UIView *backIndicatorView = [self.navigationBar valueForKey:@"backIndicatorView"];
-            backIndicatorView.alpha = 1;
-        }];
+        CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
+        if (systemVersion < 11) {
+            [UIView animateWithDuration:.13 animations:^{
+                UIView *backIndicatorView = [self.navigationBar valueForKey:@"backIndicatorView"];
+                backIndicatorView.alpha = 1;
+            }];
+        }
         return NO;
     }
 }
