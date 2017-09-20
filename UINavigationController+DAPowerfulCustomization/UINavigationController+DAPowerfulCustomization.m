@@ -556,9 +556,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             [tc notifyWhenInteractionChangesUsingBlock:cancel];
 #else
             if ([tc respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
-                if (@available(iOS 10.0, *)) {
                     [tc notifyWhenInteractionChangesUsingBlock:cancel];
-                }
             } else {
                 [tc notifyWhenInteractionEndsUsingBlock:cancel];
             }
