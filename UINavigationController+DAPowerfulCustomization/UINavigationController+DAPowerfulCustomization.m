@@ -461,6 +461,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             return;
         }
         [vc.view setNeedsLayout];
+        [self da_updateNavigationBarBackgroundImgViewWithNavigationItem:vc.navigationItem];
         [self da_updateNavigationBarWithNavigationItem:vc.navigationItem];
         [self da_updateStatusBarWithViewController:vc];
     } else {
@@ -474,27 +475,10 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
         [toVC.view setNeedsLayout];
         
+        [self da_updateNavigationBarBackgroundImgViewWithNavigationItem:toVC.navigationItem];
         // When navigationBar doesn't need to update hidden property, use fade transition animation
         if (toVC.navigationItem.da_navigationBarHidden == self.navigationBarHidden && !self.navigationBarHidden) {
             UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
-            
-            // A little trick, when setBackgroundImage:forBarMetrics: and navigationBar has a custom background image on iOS version 11 or more, the background image transition is bad, so just do a little trick.
-            dispatch_block_t completion;
-            if (systemVersion >= 11 && fromVC.navigationItem.da_navigationBarBackgroundViewAlpha != toVC.navigationItem.da_navigationBarBackgroundViewAlpha) {
-                UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
-                backgroundImgView.hidden = YES;
-                UIImageView *fakeBackgroundImgView = [self da_fakeBackgroundImageView];
-                fakeBackgroundImgView.image = backgroundImgView.image;
-                [backgroundView insertSubview:fakeBackgroundImgView atIndex:0];
-                fakeBackgroundImgView.frame = backgroundImgView.frame;
-                fakeBackgroundImgView.alpha = backgroundImgView.alpha;
-                backgroundImgView.alpha = toVC.navigationItem.da_navigationBarBackgroundViewAlpha;
-                completion = ^{
-                    // Remove the fake backgroundImgView and reset original backgroundImageView
-                    backgroundImgView.hidden = NO;
-                    [fakeBackgroundImgView removeFromSuperview];
-                };
-            }
             
             // Some updates to fix bugs
             [UIView beginAnimations:nil context:nil];
@@ -525,9 +509,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             [tc animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
                 [self da_updateNavigationBarWithNavigationItem:toVC.navigationItem];
             } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                if (completion) {
-                    completion();
-                }
             }];
         } else {
             // Fix bugs below iOS 11
@@ -575,7 +556,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             [tc notifyWhenInteractionChangesUsingBlock:cancel];
 #else
             if ([tc respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
-                [tc notifyWhenInteractionChangesUsingBlock:cancel];
+                if (@available(iOS 10.0, *)) {
+                    [tc notifyWhenInteractionChangesUsingBlock:cancel];
+                }
             } else {
                 [tc notifyWhenInteractionEndsUsingBlock:cancel];
             }
@@ -628,6 +611,31 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     self.da_transitionViewController = viewController;
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+/**
+ A little trick, when setBackgroundImage:forBarMetrics: and navigationBar has a custom background image on iOS version 11 or more, the background image transition is bad, so just do a little trick.
+ */
+- (void)da_updateNavigationBarBackgroundImgViewWithNavigationItem:(UINavigationItem *)navigationItem
+{
+    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+        return;
+    }
+    UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
+    UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
+    UIImageView *fakeBackgroundImgView = [self da_fakeBackgroundImageView];
+    if ([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault]) {
+        backgroundImgView.hidden = YES;
+        fakeBackgroundImgView.image = backgroundImgView.image;
+        [backgroundView insertSubview:fakeBackgroundImgView atIndex:0];
+        fakeBackgroundImgView.frame = backgroundImgView.frame;
+        fakeBackgroundImgView.alpha = backgroundImgView.alpha;
+        backgroundImgView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
+    } else {
+        backgroundImgView.hidden = NO;
+        backgroundImgView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
+        [fakeBackgroundImgView removeFromSuperview];
+    }
 }
 
 - (BOOL)da_shouldUpdateBarsWithViewController:(UIViewController *)vc
