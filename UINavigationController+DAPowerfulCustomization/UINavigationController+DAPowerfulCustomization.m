@@ -622,7 +622,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
     UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
     UIImageView *fakeBackgroundImgView = [self da_fakeBackgroundImageView];
-    if ([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault]) {
+    if ([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) {
         backgroundImgView.hidden = YES;
         fakeBackgroundImgView.image = backgroundImgView.image;
         [backgroundView insertSubview:fakeBackgroundImgView atIndex:0];
