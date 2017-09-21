@@ -337,6 +337,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         da_class_methodSwizzling([self class], @selector(viewDidLoad), @selector(da_viewDidLoad));
+        da_class_methodSwizzling([self class], @selector(viewWillLayoutSubviews), @selector(da_viewWillLayoutSubviews));
         da_class_methodSwizzling([self class], @selector(pushViewController:animated:), @selector(da_pushViewController:animated:));
         da_class_methodSwizzling([self class], @selector(setViewControllers:animated:), @selector(da_setViewControllers:animated:));
         da_class_methodSwizzling([self class], @selector(popViewControllerAnimated:), @selector(da_popViewControllerAnimated:));
@@ -352,14 +353,20 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     // Call the default implementation
     [self da_viewDidLoad];
     // Update the bar appearance
+    
     [self da_updateNavigationBarAndStatusBarAppearance];
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self da_updateNavigationBarAndStatusBarAppearance];
-        });
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self da_updateNavigationBarAndStatusBarAppearance];
+    });
+    
     // Change the delegate of interactivePopGestureRecognizer, we manage it ourselves
     self.interactivePopGestureRecognizer.delegate = [self da_popGestureDelegate];
+}
+
+- (void)da_viewWillLayoutSubviews
+{
+    [self da_viewWillLayoutSubviews];
+    [self da_updateNavigationBarBackgroundImgView];
 }
 
 - (void)da_pushViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -461,13 +468,15 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             return;
         }
         [vc.view setNeedsLayout];
-        [self da_updateNavigationBarBackgroundImgViewWithNavigationItem:vc.navigationItem];
         [self da_updateNavigationBarWithNavigationItem:vc.navigationItem];
         [self da_updateStatusBarWithViewController:vc];
     } else {
         UIViewController *fromVC = [tc viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *toVC = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
         if ([toVC isKindOfClass:[UINavigationController class]]) {
+            if (toVC != self) {
+                return;
+            }
             toVC = [(UINavigationController *)toVC viewControllers].lastObject;
         }
         if (![self da_shouldUpdateBarsWithViewController:toVC]) {
@@ -475,7 +484,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
         [toVC.view setNeedsLayout];
         
-        [self da_updateNavigationBarBackgroundImgViewWithNavigationItem:toVC.navigationItem];
         // When navigationBar doesn't need to update hidden property, use fade transition animation
         if (toVC.navigationItem.da_navigationBarHidden == self.navigationBarHidden && !self.navigationBarHidden) {
             UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
@@ -556,7 +564,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             [tc notifyWhenInteractionChangesUsingBlock:cancel];
 #else
             if ([tc respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
-                    [tc notifyWhenInteractionChangesUsingBlock:cancel];
+                [tc notifyWhenInteractionChangesUsingBlock:cancel];
             } else {
                 [tc notifyWhenInteractionEndsUsingBlock:cancel];
             }
@@ -614,7 +622,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 /**
  A little trick, when setBackgroundImage:forBarMetrics: and navigationBar has a custom background image on iOS version 11 or more, the background image transition is bad, so just do a little trick.
  */
-- (void)da_updateNavigationBarBackgroundImgViewWithNavigationItem:(UINavigationItem *)navigationItem
+- (void)da_updateNavigationBarBackgroundImgView
 {
     if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
         return;
@@ -628,10 +636,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         [backgroundView insertSubview:fakeBackgroundImgView atIndex:0];
         fakeBackgroundImgView.frame = backgroundImgView.frame;
         fakeBackgroundImgView.alpha = backgroundImgView.alpha;
-        backgroundImgView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
     } else {
         backgroundImgView.hidden = NO;
-        backgroundImgView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
+        backgroundImgView.alpha = fakeBackgroundImgView.alpha;
         [fakeBackgroundImgView removeFromSuperview];
     }
 }
@@ -894,3 +901,4 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 }
 
 @end
+
