@@ -337,6 +337,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         da_class_methodSwizzling([self class], @selector(viewDidLoad), @selector(da_viewDidLoad));
+        da_class_methodSwizzling([self class], @selector(viewWillAppear:), @selector(da_viewWillAppear:));
         da_class_methodSwizzling([self class], @selector(viewWillLayoutSubviews), @selector(da_viewWillLayoutSubviews));
         da_class_methodSwizzling([self class], @selector(pushViewController:animated:), @selector(da_pushViewController:animated:));
         da_class_methodSwizzling([self class], @selector(setViewControllers:animated:), @selector(da_setViewControllers:animated:));
@@ -353,7 +354,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     // Call the default implementation
     [self da_viewDidLoad];
     // Update the bar appearance
-    
     [self da_updateNavigationBarAndStatusBarAppearance];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self da_updateNavigationBarAndStatusBarAppearance];
@@ -365,8 +365,14 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (void)da_viewWillLayoutSubviews
 {
-    [self da_viewWillLayoutSubviews];
     [self da_updateNavigationBarBackgroundImgView];
+    [self da_viewWillLayoutSubviews];
+}
+
+- (void)da_viewWillAppear:(BOOL)animated
+{
+    [self da_viewWillAppear:animated];
+    [self da_updateNavigationBarWithTopNavigationItem];
 }
 
 - (void)da_pushViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -473,16 +479,23 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     } else {
         UIViewController *fromVC = [tc viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *toVC = [tc viewControllerForKey:UITransitionContextToViewControllerKey];
+        BOOL isInitial = NO;
         if ([toVC isKindOfClass:[UINavigationController class]]) {
             if (toVC != self) {
                 return;
             }
             toVC = [(UINavigationController *)toVC viewControllers].lastObject;
+            isInitial = YES;
         }
         if (![self da_shouldUpdateBarsWithViewController:toVC]) {
             return;
         }
         [toVC.view setNeedsLayout];
+        if (isInitial) {
+            [self da_updateNavigationBarWithNavigationItem:toVC.navigationItem];
+            [self da_updateStatusBarWithViewController:toVC];
+            return;
+        }
         
         // When navigationBar doesn't need to update hidden property, use fade transition animation
         if (toVC.navigationItem.da_navigationBarHidden == self.navigationBarHidden && !self.navigationBarHidden) {
@@ -635,12 +648,19 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         fakeBackgroundImgView.image = backgroundImgView.image;
         [backgroundView insertSubview:fakeBackgroundImgView atIndex:0];
         fakeBackgroundImgView.frame = backgroundImgView.frame;
-        fakeBackgroundImgView.alpha = backgroundImgView.alpha;
     } else {
         backgroundImgView.hidden = NO;
         backgroundImgView.alpha = fakeBackgroundImgView.alpha;
         [fakeBackgroundImgView removeFromSuperview];
     }
+}
+
+- (void)da_updateNavigationBarWithTopNavigationItem
+{
+    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+        return;
+    }
+    [self da_updateNavigationBarWithNavigationItem:self.topViewController.navigationItem];
 }
 
 - (BOOL)da_shouldUpdateBarsWithViewController:(UIViewController *)vc
@@ -901,4 +921,3 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 }
 
 @end
-
