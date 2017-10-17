@@ -353,6 +353,9 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     // Call the default implementation
     [self da_viewDidLoad];
+    if (![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+        return;
+    }
     // Update the bar appearance
     [self da_updateNavigationBarAndStatusBarAppearance];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -637,7 +640,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
  */
 - (void)da_updateNavigationBarBackgroundImgView
 {
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+    if ([UIDevice currentDevice].systemVersion.floatValue < 11 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
@@ -657,7 +660,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (void)da_updateNavigationBarWithTopNavigationItem
 {
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11) {
+    if ([UIDevice currentDevice].systemVersion.floatValue < 11 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     [self da_updateNavigationBarWithNavigationItem:self.topViewController.navigationItem];
@@ -666,7 +669,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (BOOL)da_shouldUpdateBarsWithViewController:(UIViewController *)vc
 {
     // Fix bugs of some system UINavigationController subclasses
-    if (!vc || [vc isKindOfClass:NSClassFromString([@"PUUI" stringByAppendingString:@"ImageViewController"])] || [vc isKindOfClass:NSClassFromString([@"CAMI" stringByAppendingString:@"magePickerCameraViewController"])]) {
+    if (!vc || [vc isKindOfClass:NSClassFromString([@"PUUI" stringByAppendingString:@"ImageViewController"])] || [vc isKindOfClass:NSClassFromString([@"CAMI" stringByAppendingString:@"magePickerCameraViewController"])] || [self isKindOfClass:NSClassFromString(@"TZImagePickerController")]) {
         return NO;
     }
     return YES;
