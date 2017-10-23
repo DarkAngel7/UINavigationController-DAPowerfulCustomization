@@ -624,6 +624,8 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
     }
     self.navigationBar.titleTextAttributes = navigationItem.da_navigationBarTitleTextAttributes;
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    [self da_fakeBackgroundImageView].frame = CGRectMake(0, 0, self.navigationBar.frame.size.width, self.navigationBar.frame.size.height + statusBarHeight);
 }
 
 /**
