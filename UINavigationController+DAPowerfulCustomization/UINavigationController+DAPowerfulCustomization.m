@@ -624,10 +624,12 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
     }
     self.navigationBar.titleTextAttributes = navigationItem.da_navigationBarTitleTextAttributes;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
-        [self da_fakeBackgroundImageView].frame = backgroundImgView.frame;
-    });
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 11) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
+            [self da_fakeBackgroundImageView].frame = backgroundImgView.frame;
+        });
+    }
 }
 
 /**
