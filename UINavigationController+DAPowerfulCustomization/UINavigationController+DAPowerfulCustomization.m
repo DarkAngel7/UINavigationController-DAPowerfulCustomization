@@ -353,7 +353,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     // Call the default implementation
     [self da_viewDidLoad];
-    if (![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+    if (![self da_shouldUpdateBarsWithViewController:self.topViewController ? : self]) {
         return;
     }
     // Update the bar appearance
@@ -618,8 +618,8 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             backgroundView.alpha = 1;
         };
         backgroundViewUpdateHandler();
-        // Fix bugs on iOS 11 when interaction ends
-        if (!self.transitionCoordinator.isInteractive && [UIDevice currentDevice].systemVersion.floatValue >= 11) {
+        // Fix bugs when interaction ends
+        if (!self.transitionCoordinator.isInteractive) {
             dispatch_async(dispatch_get_main_queue(), backgroundViewUpdateHandler);
         }
     }
