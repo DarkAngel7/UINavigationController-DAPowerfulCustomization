@@ -381,6 +381,12 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (void)da_pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     [self da_pushViewController:viewController animated:animated];
+    //Fix iPhone X tabbar push bugs
+    if (self.view.bounds.size.height == 812) {
+        CGRect frame = self.tabBarController.tabBar.frame;
+        frame.origin.y = self.view.bounds.size.height - frame.size.height;
+        self.tabBarController.tabBar.frame = frame;
+    }
     // Fix bugs of some system UINavigationController subclasses
     if ([viewController isKindOfClass:NSClassFromString([@"PUUI" stringByAppendingString:@"ImageViewController"])]) {
         return;
