@@ -178,7 +178,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         // First we use KVC to get the UIBarBackground
         UIView *backgroundView = [navigationBar valueForKey:@"backgroundView"];
         // When 'setBackgroundImage:forBarMetrics:' a custom background image, we need to change the alpha of the backgroundView
-        if ([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && [UIDevice currentDevice].systemVersion.floatValue < 11) {
+        if (([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && [UIDevice currentDevice].systemVersion.floatValue < 11) || !navigationBar.translucent) {
             backgroundView.alpha = da_navigationBarBackgroundViewAlpha;
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 obj.alpha = 1;
@@ -609,7 +609,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
-    if (([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && [UIDevice currentDevice].systemVersion.floatValue < 11) {
+    if ((([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && [UIDevice currentDevice].systemVersion.floatValue < 11) || !self.navigationBar.translucent) {
         backgroundView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
         if (!self.transitionCoordinator.isInteractive) {
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
