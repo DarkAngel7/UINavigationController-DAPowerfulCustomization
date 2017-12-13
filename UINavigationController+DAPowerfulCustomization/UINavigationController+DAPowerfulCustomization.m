@@ -672,7 +672,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (void)da_updateNavigationBarWithTopNavigationItem
 {
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+    if (([UIDevice currentDevice].systemVersion.floatValue < 11 && [UIDevice currentDevice].systemVersion.floatValue >= 10) || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     [self da_updateNavigationBarWithNavigationItem:self.topViewController.navigationItem];
