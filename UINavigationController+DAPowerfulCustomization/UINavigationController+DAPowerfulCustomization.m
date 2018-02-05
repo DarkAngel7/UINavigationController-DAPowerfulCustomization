@@ -582,15 +582,11 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
                     [self da_updateNavigationBarWithNavigationItem:fromVC.navigationItem];
                 }
             };
-#if __IPHONE_OS_VERSION_MIN_ALLOWED >= 100000
-            [tc notifyWhenInteractionChangesUsingBlock:cancel];
-#else
-            if ([tc respondsToSelector:@selector(notifyWhenInteractionChangesUsingBlock:)]) {
+            if (@available(iOS 10.0, *)) {
                 [tc notifyWhenInteractionChangesUsingBlock:cancel];
             } else {
                 [tc notifyWhenInteractionEndsUsingBlock:cancel];
             }
-#endif
         }
     }
 }
