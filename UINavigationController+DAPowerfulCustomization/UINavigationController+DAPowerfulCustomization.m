@@ -73,9 +73,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     UINavigationBar *navigationBar = self.da_navigationBar;
     objc_setAssociatedObject(self, @selector(da_statusBarStyle), @(da_statusBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (self.da_statusBarStyle == da_statusBarStyle) {
-        return;
-    }
     UINavigationItem *item = navigationBar.topItem;
     // Here note the item is at the top of the stack or not
     if (self == item) {
@@ -87,9 +84,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (void)setDa_statusBarAnimation:(UIStatusBarAnimation)da_statusBarAnimation
 {
     objc_setAssociatedObject(self, @selector(da_statusBarAnimation), @(da_statusBarAnimation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (self.da_statusBarAnimation == da_statusBarAnimation) {
-        return;
-    }
     UINavigationBar *navigationBar = self.da_navigationBar;
     UINavigationItem *item = navigationBar.topItem;
     if (self == item) {
@@ -101,9 +95,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (void)setDa_statusBarHidden:(BOOL)da_statusBarHidden
 {
     objc_setAssociatedObject(self, @selector(da_statusBarHidden), @(da_statusBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (self.da_statusBarHidden == da_statusBarHidden) {
-        return;
-    }
     UINavigationBar *navigationBar = self.da_navigationBar;
     UINavigationItem *item = navigationBar.topItem;
     if (self == item) {
