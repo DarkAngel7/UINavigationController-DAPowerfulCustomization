@@ -348,7 +348,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         return;
     }
     // Update the bar appearance
-    [self da_updateNavigationBarAndStatusBarAppearance];
+//    [self da_updateNavigationBarAndStatusBarAppearance];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self da_updateNavigationBarAndStatusBarAppearance];
     });
