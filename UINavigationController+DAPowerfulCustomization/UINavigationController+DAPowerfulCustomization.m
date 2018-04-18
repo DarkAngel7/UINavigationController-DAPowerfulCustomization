@@ -255,7 +255,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 #pragma mark - Private Methods
 
 /**
- Usually a UINavigationBar is managed by UINavigationControll, and it's delegate is UINavigationController, so we use delegate to get navigationController
+ Usually a UINavigationBar is managed by UINavigationController, and it's delegate is UINavigationController, so we use delegate to get navigationController
  */
 - (nullable UINavigationController *)da_navigationController
 {
@@ -348,7 +348,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         return;
     }
     // Update the bar appearance
-//    [self da_updateNavigationBarAndStatusBarAppearance];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self da_updateNavigationBarAndStatusBarAppearance];
     });
@@ -377,10 +376,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         CGRect frame = self.tabBarController.tabBar.frame;
         frame.origin.y = self.view.bounds.size.height - frame.size.height;
         self.tabBarController.tabBar.frame = frame;
-    }
-    // Fix bugs of some system UINavigationController subclasses
-    if ([viewController isKindOfClass:NSClassFromString([@"PUUI" stringByAppendingString:@"ImageViewController"])]) {
-        return;
     }
     [self da_updateNavigationBarAndStatusBarAppearance];
 }
@@ -716,7 +711,7 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 + (nullable instancetype)updateWithNavigationItemKeyPath:(nonnull NSString *)keyPath fromValue:(nullable id)fromValue toValue:(nullable id)toValue
 {
     DANavigationItemUpdate *update = [[DANavigationItemUpdate alloc] init];
-    update.navigationItemkeyPath = keyPath;
+    update.navigationItemKeyPath = keyPath;
     update.fromValue = fromValue;
     update.toValue = toValue;
     return update;
@@ -830,11 +825,11 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
 {
     for (DANavigationItemUpdate *update in self.navigationItemUpdates) {
         id value;
-        if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarBackgroundViewAlpha"]) {
+        if ([update.navigationItemKeyPath isEqualToString:@"da_navigationBarBackgroundViewAlpha"]) {
             value = @(da_calculateMedianValue([update.fromValue doubleValue], [update.toValue doubleValue], percent));
-        } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTintColor"] || [update.navigationItemkeyPath isEqualToString:@"da_navigationBarBarTintColor"]) {
+        } else if ([update.navigationItemKeyPath isEqualToString:@"da_navigationBarTintColor"] || [update.navigationItemKeyPath isEqualToString:@"da_navigationBarBarTintColor"]) {
             value = [self colorFromColor:update.fromValue toColor:update.toValue percent:percent];
-        } else if ([update.navigationItemkeyPath isEqualToString:@"da_navigationBarTitleTextAttributes"]) {
+        } else if ([update.navigationItemKeyPath isEqualToString:@"da_navigationBarTitleTextAttributes"]) {
             NSDictionary *fromAttributes = update.fromValue;
             NSDictionary *toAttibutes = update.toValue;
             NSMutableDictionary *newAttributes = @{}.mutableCopy;
@@ -846,11 +841,11 @@ static CGFloat const kNavigationItemUpdateTriggerPercent = .5;
             value = newAttributes;
         }
         if (value) {
-            [self.navigationItem setValue:value forKeyPath:update.navigationItemkeyPath];
+            [self.navigationItem setValue:value forKeyPath:update.navigationItemKeyPath];
         } else {
-            NSTimeInterval animationDuration = [update.navigationItemkeyPath hasPrefix:@"da"] ? .3 : 0;
+            NSTimeInterval animationDuration = [update.navigationItemKeyPath hasPrefix:@"da"] ? .3 : 0;
             [UIView animateWithDuration:animationDuration animations:^{
-                [self.navigationItem setValue:percent >= self.triggerPercent ? update.toValue : update.fromValue forKeyPath:update.navigationItemkeyPath];
+                [self.navigationItem setValue:percent >= self.triggerPercent ? update.toValue : update.fromValue forKeyPath:update.navigationItemKeyPath];
             }];
         }
     }

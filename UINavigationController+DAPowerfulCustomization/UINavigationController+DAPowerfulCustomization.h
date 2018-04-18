@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The UINavigationItem keyPath
  */
-@property (nonatomic, copy, nonnull) NSString *navigationItemkeyPath;
+@property (nonatomic, copy, nonnull) NSString *navigationItemKeyPath;
 /**
  From value
  */
@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The scrollView we observe, when it scrolls we update navigationItem according it's contentOffset
  */
-@property (nonatomic, strong) UIScrollView *observedScrollView;
+@property (nonatomic, weak) UIScrollView *observedScrollView;
 /**
  The trigger offset when update begins. When scrollView contentOffset is greater than it, the update will change to toValue, otherwise fromeValue
  */
@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL automaticallyUpdateNavigationItemWhenScrollViewScrolls;
 /**
- Quickly create a instance
+ Quickly create an instance
 
  @param scrollView the scrollView we observed
  @param triggerOffset when the scrollView scrolls, it determines when to update
