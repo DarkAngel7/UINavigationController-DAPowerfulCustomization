@@ -126,8 +126,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             return;
         }
         // Update navigationBar directly
-        UIView *shadowView = [self.da_navigationBar valueForKey:@"shadowView"];
-        shadowView.hidden = da_navigationBarShadowImageHidden;
+        [navigationBar setValue:@(da_navigationBarShadowImageHidden) forKey:@"hidesShadow"];
     }
     objc_setAssociatedObject(self, @selector(da_navigationBarShadowImageHidden), @(da_navigationBarShadowImageHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
@@ -607,8 +606,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     // Just update
     self.navigationBar.barStyle = navigationItem.da_navigationBarStyle;
-    UIView *shadowView = [self.navigationBar valueForKey:@"shadowView"];
-    shadowView.hidden = navigationItem.da_navigationBarShadowImageHidden; 
+    [self.navigationBar setValue:@(navigationItem.da_navigationBarShadowImageHidden) forKey:@"hidesShadow"];
     self.navigationBar.tintColor = navigationItem.da_navigationBarTintColor;
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];

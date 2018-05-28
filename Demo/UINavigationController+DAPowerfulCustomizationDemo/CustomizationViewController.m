@@ -38,7 +38,8 @@ static NSString *const kBackgroundViewAlphaSegueId = @"BackgroundViewAlpha";
     DANavigationItemUpdate *tintColorUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTintColor" fromValue:[UIColor blackColor] toValue:[UIColor redColor]];
     DANavigationItemUpdate *barButtonItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"rightBarButtonItem" fromValue:self.navigationItem.rightBarButtonItem toValue:nil];
     DANavigationItemUpdate *titleAlphaItemUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarTitleTextAttributes" fromValue:@{NSForegroundColorAttributeName: [UIColor greenColor]} toValue:@{NSForegroundColorAttributeName: [[UIColor greenColor] colorWithAlphaComponent:0]}];
-    DANavigationItemUpdatesConfiguration *configuration = [DANavigationItemUpdatesConfiguration configurationWithObservedScrollView:self.tableView triggerOffset:CGPointMake(0, 200) navigationItemUpdates:@[bgUpdate, statusBarUpdate,tintColorUpdate, barButtonItemUpdate, titleAlphaItemUpdate]];
+    DANavigationItemUpdate *shadowHiddenUpdate = [DANavigationItemUpdate updateWithNavigationItemKeyPath:@"da_navigationBarShadowImageHidden" fromValue:@YES toValue:@NO];
+    DANavigationItemUpdatesConfiguration *configuration = [DANavigationItemUpdatesConfiguration configurationWithObservedScrollView:self.tableView triggerOffset:CGPointMake(0, 200) navigationItemUpdates:@[bgUpdate, statusBarUpdate,tintColorUpdate, barButtonItemUpdate, titleAlphaItemUpdate, shadowHiddenUpdate]];
     self.da_navigationItemUpdatesConfiguration = configuration;
 }
 
