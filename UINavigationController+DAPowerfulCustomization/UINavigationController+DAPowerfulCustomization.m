@@ -117,6 +117,21 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     objc_setAssociatedObject(self, @selector(da_navigationBarStyle), @(da_navigationBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)setDa_navigationBarShadowImageHidden:(BOOL)da_navigationBarShadowImageHidden
+{
+    UINavigationBar *navigationBar = self.da_navigationBar;
+    UINavigationItem *item = navigationBar.topItem;
+    if (self == item) {
+        if (self.da_navigationBarShadowImageHidden == da_navigationBarShadowImageHidden) {
+            return;
+        }
+        // Update navigationBar directly
+        UIView *shadowView = [self.da_navigationBar valueForKey:@"shadowView"];
+        shadowView.hidden = da_navigationBarShadowImageHidden;
+    }
+    objc_setAssociatedObject(self, @selector(da_navigationBarShadowImageHidden), @(da_navigationBarShadowImageHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (void)setDa_navigationBarTintColor:(UIColor *)da_navigationBarTintColor
 {
     UINavigationBar *navigationBar = self.da_navigationBar;
@@ -223,6 +238,11 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     NSNumber *style = objc_getAssociatedObject(self, _cmd);
     return style ? style.integerValue : [UINavigationBar appearance].barStyle;
+}
+
+- (BOOL)da_navigationBarShadowImageHidden
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
 - (UIColor *)da_navigationBarTintColor
@@ -587,6 +607,8 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 {
     // Just update
     self.navigationBar.barStyle = navigationItem.da_navigationBarStyle;
+    UIView *shadowView = [self.navigationBar valueForKey:@"shadowView"];
+    shadowView.hidden = navigationItem.da_navigationBarShadowImageHidden; 
     self.navigationBar.tintColor = navigationItem.da_navigationBarTintColor;
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
