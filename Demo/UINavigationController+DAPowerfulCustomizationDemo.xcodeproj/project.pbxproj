@@ -15,6 +15,7 @@
 		F255C55D1F1491FB00BD10B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5541F1491FB00BD10B3 /* main.m */; };
 		F255C55E1F1491FB00BD10B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5561F1491FB00BD10B3 /* ViewController.m */; };
 		F255C5661F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m in Sources */ = {isa = PBXBuildFile; fileRef = F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */; };
+		F2E048702296B02F00DEEC99 /* UINavigationController+DAPowerfulCustomization.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F2E0486F2296B02F00DEEC99 /* UINavigationController+DAPowerfulCustomization.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		F255C5561F1491FB00BD10B3 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F255C5641F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+DAPowerfulCustomization.h"; sourceTree = "<group>"; };
 		F255C5651F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+DAPowerfulCustomization.m"; sourceTree = "<group>"; };
+		F2E0486F2296B02F00DEEC99 /* UINavigationController+DAPowerfulCustomization.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "UINavigationController+DAPowerfulCustomization.podspec"; path = "../../UINavigationController+DAPowerfulCustomization.podspec"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		F255C5491F1491FB00BD10B3 /* UINavigationController+DAPowerfulCustomizationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F2E0486F2296B02F00DEEC99 /* UINavigationController+DAPowerfulCustomization.podspec */,
 				F255C5631F14932600BD10B3 /* UINavigationController+DAPowerfulCustomization */,
 				F255C54A1F1491FB00BD10B3 /* AppDelegate.h */,
 				F255C54B1F1491FB00BD10B3 /* AppDelegate.m */,
@@ -131,6 +134,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -150,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F255C55A1F1491FB00BD10B3 /* Main.storyboard in Resources */,
+				F2E048702296B02F00DEEC99 /* UINavigationController+DAPowerfulCustomization.podspec in Resources */,
 				F255C5581F1491FB00BD10B3 /* Assets.xcassets in Resources */,
 				F255C5591F1491FB00BD10B3 /* LaunchScreen.storyboard in Resources */,
 			);

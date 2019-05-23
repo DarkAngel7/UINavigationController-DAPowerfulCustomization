@@ -683,7 +683,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (BOOL)da_shouldUpdateBarsWithViewController:(UIViewController *)vc
 {
     // Fix bugs of some system UINavigationController subclasses
-    if (!vc || [NSStringFromClass([vc class]) hasPrefix:@"PUUIImageView"] || [NSStringFromClass([vc class]) hasPrefix:@"CAMImagePickerCamera"] || [self isKindOfClass:NSClassFromString(@"TZImagePickerController")]) {
+    if (!vc || [NSStringFromClass([vc class]) hasPrefix:@"PUUIImageView"] || [NSStringFromClass([vc class]) hasPrefix:@"CAMImagePickerCamera"] || [self isKindOfClass:NSClassFromString(@"TZImagePickerController")] || [NSStringFromClass([vc class]) hasPrefix:@"PUPhotoPicker"] || [NSStringFromClass([vc superclass]) hasPrefix:@"UIImagePickerController"]) {
         return NO;
     }
     return YES;
