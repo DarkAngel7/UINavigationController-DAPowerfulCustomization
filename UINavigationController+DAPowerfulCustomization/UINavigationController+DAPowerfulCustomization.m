@@ -565,7 +565,23 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
             }
         }
         // Animate status bar appearance updates alongside transition
-        [tc animateAlongsideTransitionInView:[[UIApplication sharedApplication] valueForKey:@"statusBar"] animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        UIView *statusBar = nil;
+        if (@available(iOS 13.0, *)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+            UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].keyWindow.windowScene.statusBarManager;
+            if ([statusBarManager respondsToSelector:@selector(createLocalStatusBar)]) {
+                UIView *_localStatusBar = [statusBarManager performSelector:@selector(createLocalStatusBar)];
+                if ([_localStatusBar respondsToSelector:@selector(statusBar)]) {
+                    statusBar = [_localStatusBar performSelector:@selector(statusBar)];
+                }
+            }
+#pragma clang diagnostic pop
+        } else {
+            // Fallback on earlier versions
+            statusBar = [[UIApplication sharedApplication] valueForKey:@"statusBar"];
+        }
+        [tc animateAlongsideTransitionInView:statusBar animation:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             [self da_updateStatusBarWithViewController:toVC];
         } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             // Update bar appearance again
@@ -632,7 +648,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
     }
     self.navigationBar.titleTextAttributes = navigationItem.da_navigationBarTitleTextAttributes;
-    if ([UIDevice currentDevice].systemVersion.floatValue >= 11) {
+    if ([self systemVersion] >= 11 && [self systemVersion] < 13) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
             [self da_fakeBackgroundImageView].frame = backgroundImgView.frame;
@@ -654,7 +670,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
  */
 - (void)da_updateNavigationBarBackgroundImgView
 {
-    if ([UIDevice currentDevice].systemVersion.floatValue < 11 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+    if ([self systemVersion] < 11 || [self systemVersion] >= 13 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
@@ -720,6 +736,11 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         objc_setAssociatedObject(self, _cmd, fakeBackgroundImgView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return fakeBackgroundImgView;
+}
+
+- (CGFloat)systemVersion
+{
+    return [UIDevice currentDevice].systemVersion.floatValue;
 }
 
 @end
