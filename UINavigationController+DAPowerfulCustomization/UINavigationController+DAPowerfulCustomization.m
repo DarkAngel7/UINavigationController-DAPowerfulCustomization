@@ -55,6 +55,11 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     return a + (b - a) * percent;
 }
 
+static inline CGFloat da_systemVersion()
+{
+    return [UIDevice currentDevice].systemVersion.floatValue;
+}
+
 /**
  A private extension to expand UINavigationItem
  */
@@ -183,7 +188,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         // First we use KVC to get the UIBarBackground
         UIView *backgroundView = [navigationBar valueForKey:@"backgroundView"];
         // When 'setBackgroundImage:forBarMetrics:' a custom background image, we need to change the alpha of the backgroundView
-        if (([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && [UIDevice currentDevice].systemVersion.floatValue < 11) || !navigationBar.translucent) {
+        if (([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && (da_systemVersion() < 11 || da_systemVersion() >= 13)) || !navigationBar.translucent) {
             backgroundView.alpha = da_navigationBarBackgroundViewAlpha;
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 obj.alpha = 1;
@@ -456,7 +461,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     if (shouldPop) {
         return [self da_navigationBar:navigationBar shouldPopItem:item];
     } else {
-        CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
+        CGFloat systemVersion = da_systemVersion();
         if (systemVersion < 11) {
             [UIView animateWithDuration:.13 animations:^{
                 UIView *backIndicatorView = [self.navigationBar valueForKey:@"backIndicatorView"];
@@ -475,7 +480,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 - (void)da_updateNavigationBarAndStatusBarAppearance
 {
     // Get current system version to fix some bugs of different iOS versions
-    CGFloat systemVersion = [UIDevice currentDevice].systemVersion.floatValue;
+    CGFloat systemVersion = da_systemVersion();
     
     // Get current transitionCoordinator
     id<UIViewControllerTransitionCoordinator> tc = self.transitionCoordinator;
@@ -627,7 +632,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
-    if ((([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && [UIDevice currentDevice].systemVersion.floatValue < 11) || !self.navigationBar.translucent) {
+    if ((([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && (da_systemVersion() < 11 || da_systemVersion() >= 13 )) || !self.navigationBar.translucent) {
         backgroundView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
         if (!self.transitionCoordinator.isInteractive) {
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -648,7 +653,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         }
     }
     self.navigationBar.titleTextAttributes = navigationItem.da_navigationBarTitleTextAttributes;
-    if ([self systemVersion] >= 11 && [self systemVersion] < 13) {
+    if (da_systemVersion() >= 11 && da_systemVersion() < 13) {
         dispatch_async(dispatch_get_main_queue(), ^{
             UIImageView *backgroundImgView = [backgroundView valueForKey:@"backgroundImageView"];
             [self da_fakeBackgroundImageView].frame = backgroundImgView.frame;
@@ -670,7 +675,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
  */
 - (void)da_updateNavigationBarBackgroundImgView
 {
-    if ([self systemVersion] < 11 || [self systemVersion] >= 13 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+    if (da_systemVersion() < 11 || da_systemVersion() >= 13 || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
@@ -690,7 +695,7 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
 
 - (void)da_updateNavigationBarWithTopNavigationItem
 {
-    if (([UIDevice currentDevice].systemVersion.floatValue < 11 && [UIDevice currentDevice].systemVersion.floatValue >= 10) || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
+    if ((da_systemVersion() < 11 && da_systemVersion() >= 10) || ![self da_shouldUpdateBarsWithViewController:self.topViewController]) {
         return;
     }
     [self da_updateNavigationBarWithNavigationItem:self.topViewController.navigationItem];
@@ -736,11 +741,6 @@ static inline CGFloat da_calculateMedianValue(CGFloat a, CGFloat b, CGFloat perc
         objc_setAssociatedObject(self, _cmd, fakeBackgroundImgView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return fakeBackgroundImgView;
-}
-
-- (CGFloat)systemVersion
-{
-    return [UIDevice currentDevice].systemVersion.floatValue;
 }
 
 @end
