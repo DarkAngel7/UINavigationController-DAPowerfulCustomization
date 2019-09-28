@@ -188,7 +188,7 @@ static inline CGFloat da_systemVersion()
         // First we use KVC to get the UIBarBackground
         UIView *backgroundView = [navigationBar valueForKey:@"backgroundView"];
         // When 'setBackgroundImage:forBarMetrics:' a custom background image, we need to change the alpha of the backgroundView
-        if (([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && (da_systemVersion() < 11 || da_systemVersion() >= 13)) || !navigationBar.translucent) {
+        if (([navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] && da_systemVersion() < 11) || da_systemVersion() >= 13 || !navigationBar.translucent) {
             backgroundView.alpha = da_navigationBarBackgroundViewAlpha;
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 obj.alpha = 1;
@@ -632,7 +632,7 @@ static inline CGFloat da_systemVersion()
     self.navigationBar.barTintColor = navigationItem.da_navigationBarBarTintColor;
     [self setNavigationBarHidden:navigationItem.da_navigationBarHidden animated:self.transitionCoordinator.isAnimated];
     UIView *backgroundView = [self.navigationBar valueForKey:@"backgroundView"];
-    if ((([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && (da_systemVersion() < 11 || da_systemVersion() >= 13 )) || !self.navigationBar.translucent) {
+    if ((([self.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault] || [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) && da_systemVersion() < 11) || da_systemVersion() >= 13 || !self.navigationBar.translucent) {
         backgroundView.alpha = navigationItem.da_navigationBarBackgroundViewAlpha;
         if (!self.transitionCoordinator.isInteractive) {
             [backgroundView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
